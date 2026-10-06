@@ -4,7 +4,7 @@ Charter bookings, school contracts, coach and driver allocations, recorded balan
 
 | Do it yourself | We customise it | We run it for you |
 |---|---|---|
-| Free code installed and operated by you. Hosting and agent costs remain yours. | Your fields, dispatch rules, screens and Coach Manager export mapping. [Discuss your version](https://enterprisedna.co/omni/book?offer=replace-software&utm_campaign=coach-manager&utm_medium=github). | Installed and operated through Omni by Enterprise DNA. One setup fee, then a retainer. [See the offer](https://enterprisedna.co/omni/instead-of/coach-manager). |
+| Free code installed and operated by you. Hosting and agent costs remain yours. | Your fields, dispatch rules, screens and Coach Manager export mapping. [Discuss your version](https://enterprisedna.co/omni/book?offer=replace-software&utm_campaign=coach-manager&utm_medium=github). | Installed and operated through Omni by Enterprise DNA. One setup fee, then a retainer. [See the offer](https://enterprisedna.co/omni/instead-of/coach-manager?utm_source=github&utm_medium=readme&utm_campaign=coach-manager). |
 
 ## Quick start
 
