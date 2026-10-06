@@ -1,115 +1,77 @@
-<h1 align="center">Coach Charter for Claude Code</h1>
+# Coach Charter for Claude Code
 
-<p align="center">
-  <strong>The open-source coach and bus charter operations system that is just a database and Claude Code.</strong>
-</p>
+Charter bookings, school contracts, coach and driver allocations, recorded balances and evidence checks in a database you own. Free MIT code from Enterprise DNA. Works with Claude Code, Codex, OpenCode or Cursor.
 
-<p align="center">
-  Created by <a href="https://www.enterprisedna.co"><strong>Enterprise DNA</strong></a>. Free and open source. Works with Claude Code, Codex, OpenCode or Cursor.
-</p>
-
-<!-- three-doors -->
-<table align="center">
-  <tr>
-    <td align="center"><strong>Do it yourself</strong><br/>Clone it, run it, own it. Free, MIT.<br/><a href="#quick-start">Quick start</a></td>
-    <td align="center"><strong>We customise it</strong><br/>Your fields, your rules, your Coach Manager data brought across.<br/><a href="https://enterprisedna.co/omni/book/?utm_source=github&utm_medium=readme&utm_campaign=coach-manager">Book a call</a></td>
-    <td align="center"><strong>We run it for you</strong><br/>Installed, connected and operated inside Omni. Setup fee, then a retainer.<br/><a href="https://enterprisedna.co/omni/instead-of/coach-manager?utm_source=github&utm_medium=readme&utm_campaign=coach-manager">How it works</a></td>
-  </tr>
-</table>
-
-<p align="center">
-  <a href="#what-is-this">What is this</a> &bull;
-  <a href="#why-no-front-end">Why no front end</a> &bull;
-  <a href="#quick-start">Quick start</a> &bull;
-  <a href="#the-commands">Commands</a> &bull;
-  <a href="#instead-of-coach-manager">Instead of Coach Manager</a> &bull;
-  <a href="#want-it-installed-and-run-for-you">Installed for you</a> &bull;
-  <a href="#license">License</a>
-</p>
-
-<p align="center">
-  <img src="https://img.shields.io/badge/Node-20+-339933?style=flat-square" alt="Node 20+" />
-  <img src="https://img.shields.io/badge/PostgreSQL-any-336791?style=flat-square" alt="PostgreSQL" />
-  <img src="https://img.shields.io/badge/PGlite-embedded-3ecf8e?style=flat-square" alt="PGlite" />
-  <img src="https://img.shields.io/badge/License-MIT-yellow?style=flat-square" alt="MIT License" />
-</p>
-
----
-
-## What is this
-
-Coach Charter for Claude Code does the job you pay Coach Manager for, as a Postgres database and a set of agent commands. There is no web front end. You open the folder in [Claude Code](https://claude.com/claude-code) (or Codex, OpenCode, Cursor: see `AGENTS.md`) and ask for what you want in plain language. It runs the right query, and it can answer questions the Coach Manager dashboard cannot.
-
-<!-- TODO(author): the annual bill. One sentence: what a 10 to 50 person business typically pays Coach Manager per year, all in, with a source. -->
-
-Want the same thing with a web front end, or built on a different stack? That is a customisation, and it is exactly what Enterprise DNA does: [book a call](https://enterprisedna.co/omni/book/?utm_source=github&utm_medium=readme&utm_campaign=coach-manager).
-
-<!-- TODO(author): two or three sentences on what this specific product covers and who it is for. -->
-
-## Why no front end
-
-- The front end was only ever there because the database was hard to talk to. That is no longer true.
-- Your data sits in plain Postgres tables you own. Any tool can read them. No export, no lock-in.
-- No seats, no tiers, no add-ons. Read [docs/why-no-front-end.md](docs/why-no-front-end.md) for the honest trade-offs too.
+| Do it yourself | We customise it | We run it for you |
+|---|---|---|
+| Free code installed and operated by you. Hosting and agent costs remain yours. | Your fields, dispatch rules, screens and Coach Manager export mapping. [Discuss your version](https://enterprisedna.co/omni/book?offer=replace-software&utm_campaign=coach-manager&utm_medium=github). | Installed and operated through Omni by Enterprise DNA. One setup fee, then a retainer. [See the offer](https://enterprisedna.co/omni/instead-of/coach-manager). |
 
 ## Quick start
 
-Sixty seconds, no database install (an embedded Postgres runs inside Node):
+Node 20 or newer. Use fictional records first; never seed a live database.
 
 ```bash
 git clone https://github.com/Enterprise-DNA-OS/coach-charter-for-claude-code.git
 cd coach-charter-for-claude-code
 npm install
 npm run demo
+npm test
+npm run charter -- dispatch
+npm run charter -- attention
+npm run view
+npm run docs
 ```
 
-Then open the folder in Claude Code and type a slash command. <!-- TODO(author): name the first command to try. -->
+No database server is needed for the local PGlite demo. DATABASE_URL selects your PostgreSQL database for shared use. One tenant per database. Use a trusted operator role, restricted network access and tested backups. Row-level security is enabled without public policies. No browser login or public API is supplied.
 
-### Use it with your own Postgres or Supabase
+## What works today
 
-Copy `.env.example` to `.env`, set `DATABASE_URL`, then `npm run migrate`. Same commands, shared data, no per-seat fee.
+Ten record types and five views cover client history, quotes, bookings, school contracts, individual movements, allocations, invoice snapshots and work/rest evidence. Each movement has one vehicle and one driver. Multiple movements form a return journey or a multi-coach booking. Allocation rejects collisions, insufficient seats, unavailable resources and expired recorded credentials. Adjacent reservations are allowed; reserve depot travel and route buffers yourself. Every display uses UTC, so check the operator's local time before issuing work.
 
-## The commands
+Compliance flags recorded exceptions and missing evidence. It does not replace a complete work diary, verify licence class, calculate every fatigue rule or authorise dispatch. Read [the exact rule scope](docs/compliance.md). Australian fatigue regimes are always referred for operator review.
 
-<!-- TODO(author): a table of the slash commands in .claude/commands and what each one does. -->
+The sample import is a mapped CSV contract. A vendor-native export schema could not be verified publicly. [The replacement guide](docs/replace-coach-manager.md) explains what to request, map and reconcile. Matching repeat imports are idempotent; changed records are rejected for deliberate reconciliation. No payments, allocations or verified credentials are inferred.
 
-| Command | What it does |
-|---|---|
-| `/...` | ... |
+## Ten questions to ask
 
-## Instead of coach-manager
+Coach Manager already offers financial and operational reporting. These are questions this base answers today, not claims that the vendor cannot produce an equivalent report. Ownership lets you change the question and the rule together.
 
-<!-- TODO(author): how to bring data across from Coach Manager; link docs/replace-coach-manager.md -->
+1. Which confirmed journeys still need a coach and driver? (`unallocated`)
+2. Which quotes are overdue and when did we last speak to the client? (`quote-ageing`)
+3. Which school contracts need a review this month? (`contract-renewals`)
+4. Which confirmed or completed charters have no recorded invoice? (`uninvoiced`)
+5. Which clients have overdue balances and upcoming journeys? (`client-balances`)
+6. Which allocated coaches have spare passenger seats? (`spare-seats`)
+7. Which coach or driver turnarounds leave less than an hour? (`turnarounds`)
+8. Which active contracts have no future confirmed movement? (`contract-gaps`)
+9. Which clients with open work have gone quiet? (`quiet-clients`)
+10. Which recorded duty periods need an evidence review? (`duty-review`)
 
-## Architecture
+## Weekly command recipes
 
-```
-coach-charter-for-claude-code/
-  CLAUDE.md                 how the operator wants this run (routing table + house rules)
-  AGENTS.md                 the same, for Codex / OpenCode / Cursor / Gemini CLI
-  .claude/commands/         the slash commands
-  scripts/                  the CLI the commands drive
-  scripts/lib/db.mjs        one adapter: DATABASE_URL (pg) or embedded PGlite
-  supabase/migrations/      plain SQL schema
-  supabase/seed.sql         demo data
-  docs/                     the thesis and the migration guide
-```
+41 recipes live in .claude/commands. Start with /dispatch, /quote-chase, /contract-renewals, /arrears and /compliance. /weekly-review combines dispatch, attention and evidence. /add, /update, /allocate and /log record operator instructions. /draft-confirmation writes a draft only. /customise changes the database and tests together. See [the CLI contract](docs/cli.md) for every field and mutation.
 
-## Built for coding agents
+## Documents and reports
 
-The database, CLI and command recipes work with Claude Code, Codex, OpenCode or Cursor. Ask your coding agent for a new command and have it implement and test the change against the same records.
+npm run docs renders draft work tickets, charter confirmations, balance statements and contract reviews from current records. brand.json sets the business name, logo and colours. npm run view renders three read-only HTML reports. These are static output files, not a driver portal or a live dispatch application. [Why there is no front end](docs/why-no-front-end.md) explains the scope.
 
-## Contributing
+## Your first hour: ten things to ask for
 
-Issues and pull requests are welcome. Keep the shape: plain SQL, a small CLI, a slash command per recurring job, no front end.
+1. Add our depot name and logo.
+2. Rename the school contract review report.
+3. Add wheelchair capacity to coaches.
+4. Add a depot turnaround buffer.
+5. Record a verified passenger endorsement expiry.
+6. Import a trial charter export.
+7. Add a pickup contact field.
+8. Show overdue balances beside future charters.
+9. Change the quote follow-up interval.
+10. Draft next Monday's dispatch review.
 
-## Want it installed and run for you?
+## Validation and operation
 
-Enterprise DNA installs Coach Charter for Claude Code for your business, migrates your Coach Manager data, connects it to the rest of your tools, and runs it for you as part of **Omni**, our managed Command Center. One setup fee, then a monthly retainer.
+npm test creates a disposable database and exercises all commands, seed idempotence, collisions, failed imports, rollback, ambiguous names, evidence checks and generated documents. It ignores inherited production connection settings. TEST_DATABASE_URL is solely for a disposable CI PostgreSQL database. Windows and Linux workflows run the same suite. A workflow definition is not proof that a remote run passed.
 
-- Book a call: [enterprisedna.co/omni/book](https://enterprisedna.co/omni/book/?offer=replace-software&utm_source=github&utm_medium=readme&utm_campaign=coach-manager)
-- Read more: [enterprisedna.co/omni/instead-of/coach-manager](https://enterprisedna.co/omni/instead-of/coach-manager?utm_source=github&utm_medium=readme&utm_campaign=coach-manager)
+Money is integer cents. Displayed values are currency units and totals stay separated by currency. Invoice balances are external ledger snapshots, not payment processing or a full sales ledger. Documents are drafts, not tax invoices. JSON export is a consistent portable snapshot; restoration still needs a tested backup process.
 
-## License
-
-MIT. Copyright (c) 2026 Enterprise DNA.
+No email, payment, public publication or automated dispatch occurs. Keep work records, passenger details, exports and credentials out of Git. MIT. Independent project; Coach Manager is a Distinctive Systems product and is not affiliated with this project.

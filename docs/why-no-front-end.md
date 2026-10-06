@@ -1,24 +1,7 @@
 # Why there is no front end
 
-Coach Manager is a database with a subscription. The tables underneath it are ordinary: a few entities, a few relationships, a handful of workflows you repeat every week. What you pay for is the layer on top that lets people who do not write SQL get at those tables. Screens, filters, dashboards, forms.
+The database holds the charter work. Claude Code, Codex, OpenCode or Cursor reads the same instructions and runs one CLI. Recurring jobs have recipes in .claude/commands. Read-only HTML reports and draft documents are files you open or print; there is no web application to operate.
 
-That layer used to be the whole product, because talking to a database was hard. It is not hard any more. Open this folder in Claude Code, describe what you want, and it writes the query, runs it, and explains the answer. Ask a question the dashboard never had a chart for and you still get an answer.
+A screen can offer drag-and-drop allocation, a mobile driver diary, offline updates, location maps and instant notifications. This free base does not provide those interactions, passenger payments or a client portal. Enterprise DNA scopes the interfaces and connections your operation needs as part of a custom implementation.
 
-## What you gain
-
-- **Better answers.** A dashboard shows what the vendor decided to chart. Here you ask your own question, in your own words, and get it answered against your own data.
-- **No seats.** Everyone who needs to look can look. The bill does not grow with headcount.
-- **Your data in your Postgres.** Plain tables. Back them up, query them from anything, leave any time. There is no export step because there is nothing to leave.
-- **A process that matches you.** When your way of working changes, you add a command. You do not wait for a feature request to clear.
-
-## What you give up
-
-- **A visual board.** Stages are a table you ask about, not cards you drag.
-- **A phone app.** It runs where Claude Code runs.
-- **A vendor help desk.** This is open source. Enterprise DNA supports the installed version for businesses that want someone to call.
-
-## Who this fits
-
-Small teams who already use Claude Code, or who would rather learn to ask than learn another interface. If your team needs a screen to look at all day, keep Coach Manager. If you need the answers more than the screens, this is cheaper, faster and yours.
-
-Installed and run for you: https://enterprisedna.co/omni/instead-of/coach-manager
+The base is for a dispatcher working with records and checking drafts. It is not a live traffic control system, an approved electronic logbook or a replacement for the licensed operator's dispatch decision. Existing Coach Manager features are described on its own product page. Ownership of this base does not imply feature parity.

@@ -1,11 +1,61 @@
 [
   {
-    "name": "example",
-    "title": "TODO(author): the first document this industry must produce",
-    "for_each": "select gen_random_uuid() as id, 'Example' as name",
-    "file": "name",
+    "name": "work-ticket",
+    "title": "DRAFT: Driver work ticket",
+    "for_each": "select id,code from movements where booking_id in (select id from bookings where status='confirmed')",
+    "file": "code",
     "sections": [
-      { "title": "Details", "sql": "select 'replace me' as item, $1::text as record_id" }
+      {
+        "title": "Journey",
+        "note": "UTC times. Check local time, pickup instructions and route before issue. This document is not dispatch clearance.",
+        "sql": "select code,booking,customer,starts_at,ends_at,pickup,destination,passengers,vehicle,driver,readiness from dispatch_diary where id=$1"
+      }
+    ]
+  },
+  {
+    "name": "confirmation",
+    "title": "DRAFT: Charter confirmation",
+    "for_each": "select id,code from bookings where status in ('confirmed','quote')",
+    "file": "code",
+    "sections": [
+      {
+        "title": "Client and agreed amount",
+        "sql": "select b.code,b.name,c.name customer,b.status,b.currency,b.amount_cents,b.notes from bookings b join customers c on c.id=b.customer_id where b.id=$1"
+      },
+      {
+        "title": "Movements",
+        "note": "Confirm local times and tax treatment before sending. Nothing sends from this project.",
+        "sql": "select code,starts_at,ends_at,pickup,destination,passengers from movements where booking_id=$1 order by starts_at"
+      }
+    ]
+  },
+  {
+    "name": "balance-statement",
+    "title": "DRAFT: Customer balance statement",
+    "for_each": "select id,code from customers",
+    "file": "code",
+    "sections": [
+      {
+        "title": "Recorded invoices",
+        "note": "A reconciliation draft, not a tax invoice or payment request.",
+        "sql": "select i.code,b.currency,i.issued_on,i.due_on,i.amount_cents,i.paid_cents,i.amount_cents-i.paid_cents balance_cents from invoices i join bookings b on b.id=i.booking_id where b.customer_id=$1 order by i.due_on"
+      }
+    ]
+  },
+  {
+    "name": "contract-review",
+    "title": "DRAFT: School and charter contract review",
+    "for_each": "select id,code from contracts",
+    "file": "code",
+    "sections": [
+      {
+        "title": "Agreement dates",
+        "sql": "select code,name,customer,ends_on,review_on,confirmed_bookings from contract_review where id=$1"
+      },
+      {
+        "title": "Recorded bookings",
+        "sql": "select code,name,status,currency,amount_cents from bookings where contract_id=$1 order by code"
+      }
     ]
   }
 ]

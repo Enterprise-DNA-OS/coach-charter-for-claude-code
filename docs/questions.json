@@ -1,0 +1,42 @@
+[
+  {
+    "question": "Which confirmed journeys still need a coach and driver?",
+    "command": "unallocated"
+  },
+  {
+    "question": "Which quotes are overdue and when did we last speak to the client?",
+    "command": "quote-ageing"
+  },
+  {
+    "question": "Which school contracts need a review this month?",
+    "command": "contract-renewals"
+  },
+  {
+    "question": "Which confirmed or completed charters have no recorded invoice?",
+    "command": "uninvoiced"
+  },
+  {
+    "question": "Which clients have overdue balances and upcoming journeys?",
+    "command": "client-balances"
+  },
+  {
+    "question": "Which allocated coaches have spare passenger seats?",
+    "command": "spare-seats"
+  },
+  {
+    "question": "Which coach or driver turnarounds leave less than an hour?",
+    "command": "turnarounds"
+  },
+  {
+    "question": "Which active contracts have no future confirmed movement?",
+    "command": "contract-gaps"
+  },
+  {
+    "question": "Which clients with open work have gone quiet?",
+    "command": "quiet-clients"
+  },
+  {
+    "question": "Which recorded duty periods need an evidence review?",
+    "command": "duty-review"
+  }
+]

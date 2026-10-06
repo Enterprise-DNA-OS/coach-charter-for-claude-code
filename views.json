@@ -1,13 +1,50 @@
 [
   {
     "name": "week",
-    "title": "This week",
-    "subtitle": "Coach Charter for Claude Code: what needs attention, rendered by npm run view",
+    "title": "Charter dispatch review",
+    "subtitle": "Recorded dates are UTC. Confirm local departure times, duty fitness and route buffers.",
     "sections": [
       {
-        "title": "Needs attention",
-        "note": "TODO(author): point this at the industry's attention view (overdue, stuck, quiet).",
-        "sql": "select 'replace me' as item, 'TODO(author)' as why"
+        "title": "Confirmed movements",
+        "sql": "select code,booking,customer,starts_at,ends_at,pickup,destination,passengers,vehicle,driver,readiness from dispatch_diary where status='confirmed' and ends_at>=now() order by starts_at"
+      },
+      {
+        "title": "Quotes to follow up",
+        "sql": "select code,customer,quote_due,last_contact from quote_followups order by quote_due"
+      },
+      {
+        "title": "Contract reviews",
+        "sql": "select code,name,customer,ends_on,review_on from contract_review where review_on<=current_date+30"
+      }
+    ]
+  },
+  {
+    "name": "balances",
+    "title": "Charter balances",
+    "subtitle": "Recorded balances only. Reconcile to your accounting ledger.",
+    "sections": [
+      {
+        "title": "Amounts outstanding",
+        "sql": "select code,customer,booking,currency,due_on,balance_cents from debtors order by due_on"
+      }
+    ]
+  },
+  {
+    "name": "evidence",
+    "title": "Driver and vehicle evidence",
+    "subtitle": "Record checks, not dispatch clearance or an approved electronic logbook.",
+    "sections": [
+      {
+        "title": "Driver evidence",
+        "sql": "select code,name,country,licence_due,passenger_due,fatigue_scheme,evidence from drivers where active"
+      },
+      {
+        "title": "Vehicle evidence",
+        "sql": "select code,name,country,status,inspection_due,service_due from vehicles where status<>'retired'"
+      },
+      {
+        "title": "Recorded cumulative days",
+        "sql": "select driver,country,cumulative_day,work_minutes,evidence_recorded from duty_totals order by cumulative_day desc"
       }
     ]
   }

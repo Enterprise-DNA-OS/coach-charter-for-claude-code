@@ -1,0 +1,3 @@
+Booking Reference,Movement Reference,Client Reference,Client Name,Description,Start,End,Pickup,Destination,Passengers,Currency,Booking Amount,Status
+IMP01,IMP01-A,IMPCLIENT,Example Sports Club,Weekend charter,2027-03-08T08:00:00+13:00,2027-03-08T10:00:00+13:00,Clubrooms,Regional stadium,35,NZD,1200.50,confirmed
+IMP01,IMP01-B,IMPCLIENT,Example Sports Club,Weekend charter,2027-03-08T16:00:00+13:00,2027-03-08T18:00:00+13:00,Regional stadium,Clubrooms,35,NZD,1200.50,confirmed
